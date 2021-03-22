@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import type { Recipe } from "../index";
 
 const RecipePage: NextPage<Recipe> = (props) => {
-  console.log(props);
+  //console.log(props);
 
   return (
     <Layout>

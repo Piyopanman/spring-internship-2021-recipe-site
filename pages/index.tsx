@@ -33,10 +33,10 @@ export type Recipe = {
   related_recipes: number[];
 };
 
-type Props = {
+export interface Props {
   recipes: Recipe[];
   links: { next?: string; prev?: string };
-};
+}
 
 type QueryParameter = {
   // ページネーションする場合に指定するページ番号。

@@ -4,6 +4,7 @@ import Link from "next/link";
 type Props = {
   prevLinkUrl: string;
   nextLinkUrl: string;
+  query?: string;
 };
 
 const Paging: NextPage<Props> = (props) => {
@@ -23,24 +24,64 @@ const Paging: NextPage<Props> = (props) => {
     nextPage = nextParams.get("page");
   }
 
-  return (
-    <div>
-      {props.prevLinkUrl !== undefined ? (
-        <h2>
-          <Link href={`/?page=${prevPage}`}>前のページ</Link>
-        </h2>
-      ) : (
-        <h2> - </h2>
-      )}
-      {props.nextLinkUrl !== undefined ? (
-        <h2>
-          <Link href={`/?page=${nextPage}`}>次のページ</Link>
-        </h2>
-      ) : (
-        <h2> - </h2>
-      )}
-    </div>
-  );
+  //   return (
+  //     <div>
+  //       {props.prevLinkUrl !== undefined ? (
+  //         <h2>
+  //           <Link href={`/?page=${prevPage}`}>前のページ</Link>
+  //         </h2>
+  //       ) : (
+  //         <h2> - </h2>
+  //       )}
+  //       {props.nextLinkUrl !== undefined ? (
+  //         <h2>
+  //           <Link href={`/?page=${nextPage}`}>次のページ</Link>
+  //         </h2>
+  //       ) : (
+  //         <h2> - </h2>
+  //       )}
+  //     </div>
+  //   );
+
+  if (props.query === undefined) {
+    return (
+      <div>
+        {props.prevLinkUrl !== undefined ? (
+          <h2>
+            <Link href={`/?page=${prevPage}`}>前のページ</Link>
+          </h2>
+        ) : (
+          <h2> - </h2>
+        )}
+        {props.nextLinkUrl !== undefined ? (
+          <h2>
+            <Link href={`/?page=${nextPage}`}>次のページ</Link>
+          </h2>
+        ) : (
+          <h2> - </h2>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        {props.prevLinkUrl !== undefined ? (
+          <h2>
+            <Link href={`/${props.query}&page=${prevPage}`}>前のページ</Link>
+          </h2>
+        ) : (
+          <h2> - </h2>
+        )}
+        {props.nextLinkUrl !== undefined ? (
+          <h2>
+            <Link href={`/${props.query}&page=${nextPage}`}>次のページ</Link>
+          </h2>
+        ) : (
+          <h2> - </h2>
+        )}
+      </div>
+    );
+  }
 };
 
 export default Paging;
