@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { GetStaticProps } from "next";
+import { GetStaticProps, GetServerSideProps } from "next";
 import Link from "next/link";
 import Layout from "../components/Layout";
 import Paging from "../components/Paging";
@@ -62,16 +62,29 @@ const TopPage: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  const res = await fetch("https://internship-recipe-api.ckpd.co/recipes", {
-    headers: { "X-Api-Key": process.env.API_KEY },
-  });
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const page = context.query.page;
+  // console.log(page);
+  let res: Response;
+  if (page === undefined) {
+    res = await fetch(`https://internship-recipe-api.ckpd.co/recipes`, {
+      headers: { "X-Api-Key": process.env.API_KEY },
+    });
+  } else {
+    res = await fetch(
+      `https://internship-recipe-api.ckpd.co/recipes?page=${page}`,
+      {
+        headers: { "X-Api-Key": process.env.API_KEY },
+      }
+    );
+  }
   const props = (await res.json()) as Props;
-  console.log(props);
+  // console.log(props.links);
 
   return {
     props: props,
-    revalidate: 60,
   };
 };
 

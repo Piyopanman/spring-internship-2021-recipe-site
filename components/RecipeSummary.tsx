@@ -8,6 +8,7 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
       <h1>
         <Link href={`/recipe/${props.id}`}>{props.title}</Link>
       </h1>
+      <img src={props.image_url} alt={props.title} />
       <p>{props.description}</p>
       <br />
     </div>

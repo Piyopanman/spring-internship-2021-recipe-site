@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   );
   const props = (await res.json()) as Recipe;
-  console.log(props);
+  // console.log(props);
 
   return {
     props: props,
