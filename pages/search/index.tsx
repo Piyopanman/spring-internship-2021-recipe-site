@@ -31,8 +31,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const keyword = String(context.query.keyword);
   const encoded = encodeURI(keyword);
   const page = context.query.page;
-  console.log(keyword);
-  console.log(page);
+  // console.log(keyword);
+  // console.log(page);
   let res: Response;
   if (page === undefined) {
     res = await fetch(
@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const props = (await res.json()) as SearchProps;
   props.keyword = keyword;
 
-  console.log(props);
+  // console.log(props);
 
   return {
     props: props,

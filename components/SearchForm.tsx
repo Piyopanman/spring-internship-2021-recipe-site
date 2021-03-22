@@ -1,9 +1,30 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 const SearchForm: NextPage = () => {
+  const [keyword, setKeyword] = useState("");
+  const router = useRouter();
+  const handleSubmit = () => {
+    router.push({
+      pathname: "/search",
+      query: { keyword: keyword },
+    });
+  };
   return (
     <div>
-      <h1>search form</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          name="keyword"
+          type="text"
+          autoComplete="hoge"
+          onChange={(e) => setKeyword(e.target.value)}
+          required
+        />
+        <button type="submit" disabled={!keyword}>
+          検索
+        </button>
+      </form>
     </div>
   );
 };
