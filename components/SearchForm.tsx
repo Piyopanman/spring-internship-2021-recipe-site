@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 
 const SearchForm: NextPage = () => {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
     router.push({
       pathname: "/search",
       query: { keyword: keyword },

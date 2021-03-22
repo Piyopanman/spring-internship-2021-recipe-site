@@ -2,10 +2,10 @@ import Layout from "../../components/Layout";
 import { GetServerSideProps } from "next";
 import { NextPage } from "next";
 import type { Recipe } from "../index";
+import Ingredient from "../../components/Ingredient";
+import Step from "../../components/Step";
 
 const RecipePage: NextPage<Recipe> = (props) => {
-  //console.log(props);
-
   return (
     <Layout>
       <div>
@@ -17,15 +17,11 @@ const RecipePage: NextPage<Recipe> = (props) => {
         <p>{props.description}</p>
         <h2>材料</h2>
         {props.ingredients.map((i) => (
-          <p>
-            {i.name} : {i.quantity}
-          </p>
+          <Ingredient key={i.name} name={i.name} quantity={i.quantity} />
         ))}
         <h2>手順</h2>
         {props.steps.map((step, index) => (
-          <p>
-            {index}. {step}
-          </p>
+          <Step key={index} index={index + 1} step={step} />
         ))}
       </div>
     </Layout>

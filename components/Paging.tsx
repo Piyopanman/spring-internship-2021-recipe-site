@@ -24,25 +24,6 @@ const Paging: NextPage<Props> = (props) => {
     nextPage = nextParams.get("page");
   }
 
-  //   return (
-  //     <div>
-  //       {props.prevLinkUrl !== undefined ? (
-  //         <h2>
-  //           <Link href={`/?page=${prevPage}`}>前のページ</Link>
-  //         </h2>
-  //       ) : (
-  //         <h2> - </h2>
-  //       )}
-  //       {props.nextLinkUrl !== undefined ? (
-  //         <h2>
-  //           <Link href={`/?page=${nextPage}`}>次のページ</Link>
-  //         </h2>
-  //       ) : (
-  //         <h2> - </h2>
-  //       )}
-  //     </div>
-  //   );
-
   if (props.query === undefined) {
     return (
       <div>

@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import Head from "next/head";
 import styles from "./layout.module.css";
 import SearchForm from "./SearchFOrm";
+import Link from "next/link";
 
 type Props = {
   children?: ReactNode;
@@ -27,7 +28,9 @@ const Layout = ({
       <meta property="og:description" content={`${twitter}`} />
       <meta property="og:image" content="" />
     </Head>
-    <h1>レシピ検索app</h1>
+    <h1>
+      <Link href="/"> レシピ検索app</Link>
+    </h1>
     <SearchForm />
     {children}
   </div>

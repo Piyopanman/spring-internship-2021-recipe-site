@@ -14,6 +14,7 @@ const Search: NextPage<SearchProps> = (props) => {
   return (
     <Layout>
       <div>
+        <h1>{props.keyword}を使ったレシピ</h1>
         {props.recipes.map((r) => (
           <RecipeSummary key={r.id} {...r} />
         ))}
@@ -31,8 +32,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const keyword = String(context.query.keyword);
   const encoded = encodeURI(keyword);
   const page = context.query.page;
-  // console.log(keyword);
-  // console.log(page);
   let res: Response;
   if (page === undefined) {
     res = await fetch(
@@ -51,9 +50,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
   const props = (await res.json()) as SearchProps;
   props.keyword = keyword;
-
-  // console.log(props);
-
   return {
     props: props,
   };
