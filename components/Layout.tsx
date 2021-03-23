@@ -28,6 +28,8 @@ const Layout = ({
       <meta property="og:title" content={`${title}`} />
       <meta property="og:description" content={`${description}`} />
       <meta property="og:image" content={`${image}`} />
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="manifest" href="/manifest.json" />
     </Head>
     <h1 className="text-center text-3xl m-2 underline bg-gray-400">
       <Link href="/"> レシピ検索app</Link>

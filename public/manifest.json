@@ -1,0 +1,17 @@
+{
+  "name": "レシピ検索app",
+  "short_name": "レシピ検索app",
+  "description": "レシピを検索できます！",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffa500",
+  "theme_color": "#fff",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
