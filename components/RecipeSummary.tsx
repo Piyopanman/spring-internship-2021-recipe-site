@@ -10,16 +10,10 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
 
   return (
     <div className="border-solid border-b-2">
-      <div className="flex flex-row my-1">
-        <img
-          className="w-1/2 flex-shrink-0 mr-1"
-          src={image_url}
-          alt={props.title}
-        />
-        <h1 className="underline text-xl ">
-          <Link href={`/recipe/${props.id}`}>{props.title}</Link>
-        </h1>
-      </div>
+      <h1 className="underline text-xl ">
+        <Link href={`/recipe/${props.id}`}>{props.title}</Link>
+      </h1>
+      <img src={image_url} alt={props.title} />
       <p>{props.description}</p>
       <br />
     </div>
