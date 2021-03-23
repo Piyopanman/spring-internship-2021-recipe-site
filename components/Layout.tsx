@@ -22,11 +22,10 @@ const Layout = ({
       <title>{title}</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      <meta name="description" content="クックパッド" />
+      <meta name="description" content={`${description}`} />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@hiyoko_coder" />
       <meta property="og:url" content="https://cookpad.com/" />
-      <meta property="og:title" content="クックパッド" />
+      <meta property="og:title" content={`${title}`} />
       <meta property="og:description" content={`${description}`} />
       <meta property="og:image" content={`${image}`} />
     </Head>
