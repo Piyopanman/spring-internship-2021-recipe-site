@@ -26,39 +26,39 @@ const Paging: NextPage<Props> = (props) => {
 
   if (props.query === undefined) {
     return (
-      <div>
+      <div className="flex flex-row my-1 mx-5 justify-between">
         {props.prevLinkUrl !== undefined ? (
-          <h2>
+          <div className="underline">
             <Link href={`/?page=${prevPage}`}>前のページ</Link>
-          </h2>
+          </div>
         ) : (
-          <h2> - </h2>
+          <div className="no-underline"> - </div>
         )}
         {props.nextLinkUrl !== undefined ? (
-          <h2>
+          <div className="underline">
             <Link href={`/?page=${nextPage}`}>次のページ</Link>
-          </h2>
+          </div>
         ) : (
-          <h2> - </h2>
+          <div> - </div>
         )}
       </div>
     );
   } else {
     return (
-      <div>
+      <div className="flex flex-row my-1 mx-3 justify-between">
         {props.prevLinkUrl !== undefined ? (
-          <h2>
+          <div className="underline">
             <Link href={`/${props.query}&page=${prevPage}`}>前のページ</Link>
-          </h2>
+          </div>
         ) : (
-          <h2> - </h2>
+          <div className="no-underline"> - </div>
         )}
         {props.nextLinkUrl !== undefined ? (
-          <h2>
+          <div className="underline">
             <Link href={`/${props.query}&page=${nextPage}`}>次のページ</Link>
-          </h2>
+          </div>
         ) : (
-          <h2> - </h2>
+          <div> - </div>
         )}
       </div>
     );

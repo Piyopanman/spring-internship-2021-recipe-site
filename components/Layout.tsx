@@ -28,7 +28,7 @@ const Layout = ({
       <meta property="og:description" content={`${twitter}`} />
       <meta property="og:image" content="" />
     </Head>
-    <h1>
+    <h1 className="text-center text-3xl m-2 underline bg-gray-400">
       <Link href="/"> レシピ検索app</Link>
     </h1>
     <SearchForm />

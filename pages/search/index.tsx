@@ -13,8 +13,10 @@ interface SearchProps extends Props {
 const Search: NextPage<SearchProps> = (props) => {
   return (
     <Layout>
-      <div>
-        <h1>{props.keyword}を使ったレシピ</h1>
+      <div className="mx-auto w-5/6">
+        <h1 className="text-center text-2xl m-2">
+          {props.keyword}を使ったレシピ
+        </h1>
         {props.recipes.map((r) => (
           <RecipeSummary key={r.id} {...r} />
         ))}

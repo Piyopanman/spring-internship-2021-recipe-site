@@ -30,14 +30,12 @@ export interface Props {
 const TopPage: NextPage<Props> = (props) => {
   return (
     <Layout>
-      <div>
-        <div>
-          {props.recipes.map((r) => (
-            <RecipeSummary key={r.id} {...r} />
-          ))}
-        </div>
-        <Paging prevLinkUrl={props.links.prev} nextLinkUrl={props.links.next} />
+      <div className="mx-auto w-5/6">
+        {props.recipes.map((r) => (
+          <RecipeSummary key={r.id} {...r} />
+        ))}
       </div>
+      <Paging prevLinkUrl={props.links.prev} nextLinkUrl={props.links.next} />
     </Layout>
   );
 };

@@ -13,16 +13,21 @@ const SearchForm: NextPage = () => {
     });
   };
   return (
-    <div>
+    <div className="text-center mb-6">
       <form onSubmit={handleSubmit}>
         <input
+          className="p-1 border-solid border border-black rounded-sm"
           name="keyword"
           type="text"
           autoComplete="hoge"
           onChange={(e) => setKeyword(e.target.value)}
           required
         />
-        <button type="submit" disabled={!keyword}>
+        <button
+          className="p-1 border-solid border border-black rounded-sm"
+          type="submit"
+          disabled={!keyword}
+        >
           検索
         </button>
       </form>

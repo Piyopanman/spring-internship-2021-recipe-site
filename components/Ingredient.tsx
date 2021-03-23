@@ -7,10 +7,9 @@ type Props = {
 
 const Ingredient: NextPage<Props> = ({ name, quantity }) => {
   return (
-    <div>
-      <p>
-        {name}:{quantity}
-      </p>
+    <div className="flex flex-row my-1 justify-between">
+      <div> {name}</div>
+      <div>{quantity}</div>
     </div>
   );
 };
