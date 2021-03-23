@@ -9,7 +9,7 @@ const RecipePage: NextPage<Recipe> = (props) => {
   let date = format(new Date(props.published_at));
 
   return (
-    <Layout>
+    <Layout title={`${props.title} | レシピ検索app`}>
       <div className="mx-auto w-5/6 mt-2">
         <h1 className="text-xl">{props.title}</h1>
         <img src={props.image_url} alt="image" />

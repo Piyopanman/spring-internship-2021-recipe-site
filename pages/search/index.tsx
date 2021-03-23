@@ -11,7 +11,7 @@ interface SearchProps extends Props {
 
 const Search: NextPage<SearchProps> = (props) => {
   return (
-    <Layout>
+    <Layout title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}>
       <div className="mx-auto w-5/6">
         <h1 className="text-center text-2xl m-2">
           {props.keyword}を使ったレシピ

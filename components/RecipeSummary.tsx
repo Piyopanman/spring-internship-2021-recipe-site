@@ -3,7 +3,6 @@ import type { Recipe } from "../pages";
 import Link from "next/link";
 
 const RecipeSummary: NextPage<Recipe> = (props) => {
-  console.log(props.image_url);
   let image_url = props.image_url;
   if (props.image_url === null) {
     image_url = "/no_image.jpeg";

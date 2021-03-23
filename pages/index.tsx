@@ -29,7 +29,7 @@ export interface Props {
 
 const TopPage: NextPage<Props> = (props) => {
   return (
-    <Layout>
+    <Layout title="レシピ検索app">
       <div className="mx-auto w-5/6">
         {props.recipes.map((r) => (
           <RecipeSummary key={r.id} {...r} />
