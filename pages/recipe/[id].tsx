@@ -1,7 +1,7 @@
 import Layout from "../../components/Layout";
 import { GetServerSideProps } from "next";
 import { NextPage } from "next";
-import type { Recipe } from "../index";
+import type { Recipe } from "..";
 import Ingredient from "../../components/Ingredient";
 import Step from "../../components/Step";
 

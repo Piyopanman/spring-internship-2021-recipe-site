@@ -3,7 +3,6 @@ import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 import Paging from "../../components/Paging";
 import RecipeSummary from "../../components/RecipeSummary";
-import type { Recipe } from "../index";
 import type { Props } from "../index";
 
 interface SearchProps extends Props {
