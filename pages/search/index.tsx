@@ -1,9 +1,10 @@
-import type { NextPage } from "next";
-import { GetServerSideProps } from "next";
+import type { NextPage, GetServerSideProps } from "next";
+import loadable from "@loadable/component";
 import Layout from "../../components/Layout";
-import Paging from "../../components/Paging";
-import RecipeSummary from "../../components/RecipeSummary";
 import type { Props } from "../index";
+
+const Paging = loadable(() => import("../../components/Paging"));
+const RecipeSummary = loadable(() => import("../../components/RecipeSummary"));
 
 interface SearchProps extends Props {
   keyword: string;

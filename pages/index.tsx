@@ -1,9 +1,9 @@
-import type { NextPage } from "next";
-import { GetStaticProps, GetServerSideProps } from "next";
-import Link from "next/link";
+import type { NextPage, GetServerSideProps } from "next";
+import loadable from "@loadable/component";
 import Layout from "../components/Layout";
-import Paging from "../components/Paging";
-import RecipeSummary from "../components/RecipeSummary";
+
+const Paging = loadable(() => import("../components/Paging"));
+const RecipeSummary = loadable(() => import("../components/RecipeSummary"));
 
 export type Recipe = {
   id: number;

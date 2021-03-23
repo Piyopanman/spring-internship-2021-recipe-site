@@ -1,9 +1,10 @@
 import Layout from "../../components/Layout";
-import { GetServerSideProps } from "next";
-import { NextPage } from "next";
+import loadable from "@loadable/component";
+import { NextPage, GetServerSideProps } from "next";
 import type { Recipe } from "..";
-import Ingredient from "../../components/Ingredient";
-import Step from "../../components/Step";
+
+const Ingredient = loadable(() => import("../../components/Ingredient"));
+const Step = loadable(() => import("../../components/Step"));
 
 const RecipePage: NextPage<Recipe> = (props) => {
   let date = format(new Date(props.published_at));
