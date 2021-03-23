@@ -11,7 +11,11 @@ interface SearchProps extends Props {
 
 const Search: NextPage<SearchProps> = (props) => {
   return (
-    <Layout title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}>
+    <Layout
+      title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}
+      description={`${props.recipes[0].description}`}
+      image={`${props.recipes[0].image_url}`}
+    >
       <div className="mx-auto w-5/6">
         <h1 className="text-center text-2xl m-2">
           {props.keyword}を使ったレシピ
@@ -29,7 +33,9 @@ const Search: NextPage<SearchProps> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
   const keyword = String(context.query.keyword);
   const encoded = encodeURI(keyword);
   const page = context.query.page;
@@ -50,6 +56,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     );
   }
   const props = (await res.json()) as SearchProps;
+
   props.keyword = keyword;
   return {
     props: props,

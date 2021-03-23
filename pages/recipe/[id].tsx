@@ -9,7 +9,11 @@ const RecipePage: NextPage<Recipe> = (props) => {
   let date = format(new Date(props.published_at));
 
   return (
-    <Layout title={`${props.title} | レシピ検索app`}>
+    <Layout
+      title={`${props.title} | レシピ検索app`}
+      description={`${props.description}`}
+      image={`${props.image_url}`}
+    >
       <div className="mx-auto w-5/6 mt-2">
         <h1 className="text-xl">{props.title}</h1>
         <img src={props.image_url} alt="image" />
@@ -31,7 +35,9 @@ const RecipePage: NextPage<Recipe> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Recipe> = async (
+  context
+) => {
   const id = Number(context.params?.id);
 
   const res = await fetch(

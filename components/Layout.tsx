@@ -7,13 +7,15 @@ import Link from "next/link";
 type Props = {
   children?: ReactNode;
   title?: string;
-  twitter?: string;
+  description?: string;
+  image?: string;
 };
 
 const Layout = ({
   children,
-  title = "default title",
-  twitter = "default twitter description",
+  title = "レシピ検索app",
+  description = "レシピを検索できます！",
+  image = "http://img.cpcdn.com/recipes/317016/1280x720c/2c3d2dfb0ad90b38b791cca584edc87a.jpg",
 }: Props) => (
   <div className={styles.container}>
     <Head>
@@ -25,8 +27,8 @@ const Layout = ({
       <meta name="twitter:site" content="@hiyoko_coder" />
       <meta property="og:url" content="https://cookpad.com/" />
       <meta property="og:title" content="クックパッド" />
-      <meta property="og:description" content={`${twitter}`} />
-      <meta property="og:image" content="" />
+      <meta property="og:description" content={`${description}`} />
+      <meta property="og:image" content={`${image}`} />
     </Head>
     <h1 className="text-center text-3xl m-2 underline bg-gray-400">
       <Link href="/"> レシピ検索app</Link>
