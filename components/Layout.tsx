@@ -23,7 +23,7 @@ const Layout = ({
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={`${description}`} />
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta property="og:url" content="https://cookpad.com/" />
       <meta property="og:title" content={`${title}`} />
       <meta property="og:description" content={`${description}`} />
