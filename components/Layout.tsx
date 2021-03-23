@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import styles from "./layout.module.css";
-import SearchForm from "./SearchFOrm";
+import SearchForm from "./SearchForm";
 import Link from "next/link";
 
 type Props = {
