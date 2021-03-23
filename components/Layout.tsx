@@ -24,12 +24,19 @@ const Layout = ({
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       <meta name="description" content={`${description}`} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta property="og:url" content="https://cookpad.com/" />
+      <meta
+        property="og:url"
+        content="https://kakizaki-spring-internship-2021-recipe-site.vercel.app/"
+      />
       <meta property="og:title" content={`${title}`} />
       <meta property="og:description" content={`${description}`} />
       <meta property="og:image" content={`${image}`} />
-      <link rel="icon" href="/favicon.ico" />
+      <meta name="msapplication-square150x150logo" content="/favicon.png" />
+      <meta name="msapplication-TileColor" content="#ffa500" />
       <link rel="manifest" href="/manifest.json" />
+      <link rel="icon" href="/favicon.ico" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+      <link rel="apple-touch-startup-image" href="/favicon.ico" />
     </Head>
     <h1 className="text-center text-3xl m-2 underline bg-gray-400">
       <Link href="/"> レシピ検索app</Link>
