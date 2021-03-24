@@ -14,7 +14,13 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
       <h1 className="underline text-xl ">
         <Link href={`/recipe/${props.id}`}>{props.title}</Link>
       </h1>
-      <Image src={image_url} alt={props.title} width={300} height={200} />
+      <Image
+        src={image_url}
+        alt={props.title}
+        width={300}
+        height={200}
+        layout="responsive"
+      />
       <p>{props.description}</p>
       <br />
     </div>
