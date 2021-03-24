@@ -33,6 +33,7 @@ const Layout = ({
       <meta property="og:image" content={`${image}`} />
       <meta name="msapplication-square150x150logo" content="/favicon.png" />
       <meta name="msapplication-TileColor" content="#ffa500" />
+      <meta name="theme-color" content="#fff" />
       <link rel="manifest" href="/manifest.json" />
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
