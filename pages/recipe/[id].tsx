@@ -1,7 +1,8 @@
-import Layout from "../../components/Layout";
-import loadable from "@loadable/component";
 import { NextPage, GetServerSideProps } from "next";
+import Image from "next/image";
+import loadable from "@loadable/component";
 import type { Recipe } from "..";
+import Layout from "../../components/Layout";
 
 const Ingredient = loadable(() => import("../../components/Ingredient"));
 const Step = loadable(() => import("../../components/Step"));
@@ -17,7 +18,7 @@ const RecipePage: NextPage<Recipe> = (props) => {
     >
       <div className="mx-auto w-5/6 mt-2">
         <h1 className="text-xl">{props.title}</h1>
-        <img src={props.image_url} alt="image" />
+        <Image src={props.image_url} alt="image" width={300} height={200} />
         <div className="flex flex-row my-1 mx-3 justify-between">
           <div>{props.author.user_name} </div>
           <div>{date}</div>
