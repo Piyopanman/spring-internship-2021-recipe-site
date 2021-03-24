@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Image from "next/image";
 import type { Recipe } from "../pages";
 import Link from "next/link";
 
@@ -13,7 +14,7 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
       <h1 className="underline text-xl ">
         <Link href={`/recipe/${props.id}`}>{props.title}</Link>
       </h1>
-      <img className="w-full h-full" src={image_url} alt={props.title} />
+      <Image src={image_url} alt={props.title} width={300} height={200} />
       <p>{props.description}</p>
       <br />
     </div>
