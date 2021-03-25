@@ -6,9 +6,7 @@ import type Recipe from "./index";
 import type Props from "./index";
 import lodash from "lodash";
 
-const Paging = loadable(() => import("../components/Paging"));
 const RecipeSummary = loadable(() => import("../components/RecipeSummary"));
-let apiKey: string;
 
 export type Recipe = {
   id: number;
@@ -46,7 +44,7 @@ const TopPage: NextPage<Props> = (props) => {
     };
   }, [number]);
 
-  // 一番下に到達したらsetPageNumberでページ番号を更新
+  // 一番下に到達したらページ番号を更新
   const handleScroll = lodash.throttle(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
@@ -57,7 +55,7 @@ const TopPage: NextPage<Props> = (props) => {
     setNumber(number + 1);
   }, 200);
 
-  // 続きの記事を取得して配列に結合
+  // 続きを取得して配列に結合
   const getRecipes = async () => {
     if (number == 1) {
       return;
@@ -84,14 +82,12 @@ const TopPage: NextPage<Props> = (props) => {
             <RecipeSummary key={r.id} {...r} />
           ))}
         </div>
-        {/* <Paging prevLinkUrl={props.links.prev} nextLinkUrl={props.links.next} /> */}
       </Layout>
     </div>
   );
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  apiKey = process.env.API_KEY;
   const res = await fetch("https://internship-recipe-api.ckpd.co/recipes", {
     headers: { "X-Api-Key": process.env.API_KEY },
   });

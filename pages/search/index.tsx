@@ -1,9 +1,11 @@
 import type { NextPage, GetServerSideProps } from "next";
+import { useState, useEffect } from "react";
 import loadable from "@loadable/component";
 import Layout from "../../components/Layout";
-import type { Props } from "../index";
+import { Props } from "../index";
+import type { Recipe } from "../index";
+import lodash from "lodash";
 
-const Paging = loadable(() => import("../../components/Paging"));
 const RecipeSummary = loadable(() => import("../../components/RecipeSummary"));
 
 interface SearchProps extends Props {
@@ -11,6 +13,51 @@ interface SearchProps extends Props {
 }
 
 const Search: NextPage<SearchProps> = (props) => {
+  const [recipes, setRecipes] = useState<Recipe[]>(props.recipes);
+  const [number, setNumber] = useState<number>(1);
+
+  useEffect(() => {
+    getRecipes();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [number]);
+
+  // 一番下に到達したらページ番号を更新
+  const handleScroll = lodash.throttle(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    ) {
+      return;
+    }
+    setNumber(number + 1);
+  }, 200);
+
+  // 続きを取得して配列に結合
+  const getRecipes = async () => {
+    console.log(number);
+
+    if (number == 1) {
+      return;
+    }
+    const key = await fetch("/api/env");
+    const json = await key.json();
+
+    const res = await fetch(
+      `https://internship-recipe-api.ckpd.co/search?keyword=${props.keyword}&page=${number}`,
+      {
+        headers: { "X-Api-Key": json.env },
+      }
+    );
+    const data = (await res.json()) as Props;
+    const newRecipes = data.recipes as Recipe[];
+    setRecipes([...recipes, ...newRecipes]);
+  };
+
   return (
     <Layout
       title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}
@@ -21,14 +68,9 @@ const Search: NextPage<SearchProps> = (props) => {
         <h1 className="text-center text-2xl m-2">
           {props.keyword}を使ったレシピ
         </h1>
-        {props.recipes.map((r) => (
+        {recipes.map((r) => (
           <RecipeSummary key={r.id} {...r} />
         ))}
-        <Paging
-          prevLinkUrl={props.links.prev}
-          nextLinkUrl={props.links.next}
-          query={`search?keyword=${props.keyword}`}
-        />
       </div>
     </Layout>
   );
@@ -40,22 +82,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const keyword = String(context.query.keyword);
   const encoded = encodeURI(keyword);
   const page = context.query.page;
-  let res: Response;
-  if (page === undefined) {
-    res = await fetch(
-      `https://internship-recipe-api.ckpd.co/search?keyword=${encoded}&page=1`,
-      {
-        headers: { "X-Api-Key": process.env.API_KEY },
-      }
-    );
-  } else {
-    res = await fetch(
-      `https://internship-recipe-api.ckpd.co/search?keyword=${encoded}&page=${page}`,
-      {
-        headers: { "X-Api-Key": process.env.API_KEY },
-      }
-    );
-  }
+  let res = await fetch(
+    `https://internship-recipe-api.ckpd.co/search?keyword=${encoded}&page=1`,
+    {
+      headers: { "X-Api-Key": process.env.API_KEY },
+    }
+  );
   const props = (await res.json()) as SearchProps;
 
   props.keyword = keyword;
