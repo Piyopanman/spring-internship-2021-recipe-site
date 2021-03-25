@@ -9,7 +9,6 @@ type Props = {
   title?: string;
   description?: string;
   image?: string;
-  preload?: string;
 };
 
 const Layout = ({
