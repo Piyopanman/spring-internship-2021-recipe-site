@@ -17,8 +17,8 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
       <Image
         src={image_url}
         alt={props.title}
-        width={300}
-        height={200}
+        width={1280}
+        height={720}
         layout="responsive"
       />
       <p>{props.description}</p>

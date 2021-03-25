@@ -35,10 +35,8 @@ const TopPage: NextPage<Props> = (props) => {
   const [number, setNumber] = useState<number>(1);
 
   useEffect(() => {
-    getRecipes();
-
     window.addEventListener("scroll", handleScroll);
-
+    getRecipes();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -76,7 +74,11 @@ const TopPage: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <Layout title="レシピ検索app" image={`${props.recipes[0].image_url}`}>
+      <Layout
+        title="レシピ検索app"
+        image={`${props.recipes[0].image_url}`}
+        preload={`${props.recipes[0].image_url}`}
+      >
         <div className="mx-auto w-5/6">
           {recipes.map((r) => (
             <RecipeSummary key={r.id} {...r} />

@@ -26,14 +26,15 @@ const RecipePage: NextPage<Props> = (props) => {
       title={`${props.recipe.title} | レシピ検索app`}
       description={`${props.recipe.description}`}
       image={`${props.recipe.image_url}`}
+      preload={`${props.recipe.image_url}`}
     >
       <div className="mx-auto w-5/6 mt-2">
         <h1 className="text-xl">{props.recipe.title}</h1>
         <Image
           src={props.recipe.image_url}
           alt={props.recipe.title}
-          width={300}
-          height={200}
+          width={1280}
+          height={720}
           layout="responsive"
         />
         <div className="flex flex-row my-1 mx-2 justify-between">
