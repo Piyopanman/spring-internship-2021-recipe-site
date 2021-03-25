@@ -7,3 +7,9 @@ node_modules
 .env.local
 .env
 process.env
+
+sw.js
+sw.js.map
+workbox-*.js
+workbox-*.js.map
+worker-*.js

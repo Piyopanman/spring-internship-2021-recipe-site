@@ -1,11 +1,14 @@
-import type { NextPage, GetServerSideProps, GetStaticProps } from "next";
+import type { NextPage, GetStaticProps } from "next";
 import { useState, useEffect } from "react";
-import lodash from "lodash";
 import loadable from "@loadable/component";
 import Layout from "../components/Layout";
+import type Recipe from "./index";
+import type Props from "./index";
+import lodash from "lodash";
 
 const Paging = loadable(() => import("../components/Paging"));
 const RecipeSummary = loadable(() => import("../components/RecipeSummary"));
+let apiKey: string;
 
 export type Recipe = {
   id: number;
@@ -30,89 +33,74 @@ export interface Props {
 }
 
 const TopPage: NextPage<Props> = (props) => {
-  // const [recipes, setRecipes] = useState<Recipe[]>(props.recipes);
-  // const [pageNumber, setPageNumber] = useState<number>(1);
+  const [recipes, setRecipes] = useState<Recipe[]>(props.recipes);
+  const [number, setNumber] = useState<number>(1);
 
-  // useEffect(() => {
-  //   getRecipes();
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [pageNumber]);
+  useEffect(() => {
+    getRecipes();
 
-  // const handleScroll = lodash.throttle(() => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop !==
-  //     document.documentElement.offsetHeight
-  //   ) {
-  //     return;
-  //   }
-  //   setPageNumber(pageNumber + 1);
-  // }, 200);
+    window.addEventListener("scroll", handleScroll);
 
-  // const getRecipes = async () => {
-  //   if (pageNumber == 1) {
-  //     return;
-  //   }
-  //   const page = String(pageNumber);
-  //   const res = await fetch(
-  //     `https://internship-recipe-api.ckpd.co/recipes?page=${page}`, //403になる
-  //     {
-  //       headers: { "X-Api-Key": process.env.API_KEY },
-  //     }
-  //   );
-  //   const json = await res.json();
-  //   var newRecipes = recipes.concat(json.contents);
-  //   setRecipes(newRecipes);
-  // };
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [number]);
+
+  // 一番下に到達したらsetPageNumberでページ番号を更新
+  const handleScroll = lodash.throttle(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    ) {
+      return;
+    }
+    setNumber(number + 1);
+  }, 200);
+
+  // 続きの記事を取得して配列に結合
+  const getRecipes = async () => {
+    if (number == 1) {
+      return;
+    }
+    const key = await fetch("/api/env");
+    const json = await key.json();
+
+    const res = await fetch(
+      `https://internship-recipe-api.ckpd.co/recipes?page=${number}`,
+      {
+        headers: { "X-Api-Key": json.env },
+      }
+    );
+    const data = (await res.json()) as Props;
+    const newRecipes = data.recipes as Recipe[];
+    setRecipes([...recipes, ...newRecipes]);
+  };
 
   return (
-    <Layout title="レシピ検索app" image={`${props.recipes[0].image_url}`}>
-      <div className="mx-auto w-5/6">
-        {props.recipes.map((r) => (
-          <RecipeSummary key={r.id} {...r} />
-        ))}
-      </div>
-      <Paging prevLinkUrl={props.links.prev} nextLinkUrl={props.links.next} />
-    </Layout>
+    <div>
+      <Layout title="レシピ検索app" image={`${props.recipes[0].image_url}`}>
+        <div className="mx-auto w-5/6">
+          {recipes.map((r) => (
+            <RecipeSummary key={r.id} {...r} />
+          ))}
+        </div>
+        {/* <Paging prevLinkUrl={props.links.prev} nextLinkUrl={props.links.next} /> */}
+      </Layout>
+    </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
-) => {
-  const page = context.query.page;
-  let res: Response;
-  if (page === undefined) {
-    res = await fetch(`https://internship-recipe-api.ckpd.co/recipes`, {
-      headers: { "X-Api-Key": process.env.API_KEY },
-    });
-  } else {
-    res = await fetch(
-      `https://internship-recipe-api.ckpd.co/recipes?page=${page}`,
-      {
-        headers: { "X-Api-Key": process.env.API_KEY },
-      }
-    );
-  }
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  apiKey = process.env.API_KEY;
+  const res = await fetch("https://internship-recipe-api.ckpd.co/recipes", {
+    headers: { "X-Api-Key": process.env.API_KEY },
+  });
   const props = (await res.json()) as Props;
 
   return {
     props: props,
+    revalidate: 600,
   };
 };
-
-// export const getStaticProps: GetStaticProps<Props> = async () => {
-//   const res = await fetch("https://internship-recipe-api.ckpd.co/recipes", {
-//     headers: { "X-Api-Key": process.env.API_KEY },
-//   });
-//   const props = (await res.json()) as Props;
-
-//   return {
-//     props: props,
-//     revalidate: 600,
-//   };
-// };
 
 export default TopPage;
