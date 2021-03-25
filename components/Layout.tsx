@@ -9,7 +9,6 @@ type Props = {
   title?: string;
   description?: string;
   image?: string;
-  preload?: string;
 };
 
 const Layout = ({
@@ -17,7 +16,6 @@ const Layout = ({
   title = "レシピ検索app",
   description = "レシピを検索できます！",
   image = "http://img.cpcdn.com/recipes/317016/1280x720c/2c3d2dfb0ad90b38b791cca584edc87a.jpg",
-  preload = "/favicon.ico",
 }: Props) => (
   <div className={styles.container}>
     <Head>
@@ -40,7 +38,6 @@ const Layout = ({
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
       <link rel="apple-touch-startup-image" href="/favicon.ico" />
-      {/* <link rel="preload" as="image" href={`${preload}`} /> */}
     </Head>
     <h1 className="text-center text-4xl p-3 mb-1 text-white bg-yellow-600">
       <Link href="/"> レシピ検索app</Link>

@@ -29,7 +29,6 @@ const RecipePage: NextPage<Props> = (props) => {
       title={`${props.recipe.title} | レシピ検索app`}
       description={`${props.recipe.description}`}
       image={`${image_url}`}
-      preload={`${image_url}`}
     >
       <div className="mx-auto w-5/6 mt-2 bg-white p-2">
         <h1 className="text-xl text-green-700">{props.recipe.title}</h1>

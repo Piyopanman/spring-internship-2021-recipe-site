@@ -71,11 +71,7 @@ const TopPage: NextPage<Props> = (props) => {
 
   return (
     <div className="bg-yellow-100">
-      <Layout
-        title="レシピ検索app"
-        image={`${image_url}`}
-        preload={`${image_url}`}
-      >
+      <Layout title="レシピ検索app" image={`${image_url}`}>
         <div className="mx-auto w-5/6 ">
           <InfiniteScroll
             loadMore={loadMore}
