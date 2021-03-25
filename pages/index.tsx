@@ -58,15 +58,13 @@ const TopPage: NextPage<Props> = (props) => {
     if (number == 1) {
       return;
     }
-    const key = await fetch("/api/env");
-    const json = await key.json();
-
     const res = await fetch(
       `https://internship-recipe-api.ckpd.co/recipes?page=${number}`,
       {
-        headers: { "X-Api-Key": json.env },
+        headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
       }
     );
+
     const data = (await res.json()) as Props;
     const newRecipes = data.recipes as Recipe[];
     setRecipes([...recipes, ...newRecipes]);
@@ -91,7 +89,7 @@ const TopPage: NextPage<Props> = (props) => {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const res = await fetch("https://internship-recipe-api.ckpd.co/recipes", {
-    headers: { "X-Api-Key": process.env.API_KEY },
+    headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
   });
   const props = (await res.json()) as Props;
 

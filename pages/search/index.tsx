@@ -44,13 +44,10 @@ const Search: NextPage<SearchProps> = (props) => {
     if (number == 1) {
       return;
     }
-    const key = await fetch("/api/env");
-    const json = await key.json();
-
     const res = await fetch(
       `https://internship-recipe-api.ckpd.co/search?keyword=${props.keyword}&page=${number}`,
       {
-        headers: { "X-Api-Key": json.env },
+        headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
       }
     );
     const data = (await res.json()) as Props;
