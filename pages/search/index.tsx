@@ -83,7 +83,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   let res = await fetch(
     `https://internship-recipe-api.ckpd.co/search?keyword=${encoded}&page=1`,
     {
-      headers: { "X-Api-Key": process.env.API_KEY },
+      headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
     }
   );
   const props = (await res.json()) as SearchProps;

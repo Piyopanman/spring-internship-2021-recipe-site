@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await fetch(
     `https://internship-recipe-api.ckpd.co/recipes/${id}`,
     {
-      headers: { "X-Api-Key": process.env.API_KEY },
+      headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
     }
   );
   const recipe = (await res.json()) as Recipe;
@@ -86,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const resReleted = await fetch(
     `https://internship-recipe-api.ckpd.co/recipes?id=${relatedRecipesParam}`,
     {
-      headers: { "X-Api-Key": process.env.API_KEY },
+      headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
     }
   );
   const relatedRecipes = (await resReleted.json()) as Recipe[];
