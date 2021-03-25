@@ -58,6 +58,7 @@ const Search: NextPage<SearchProps> = (props) => {
       title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}
       description={`${props.recipes[0].description}`}
       image={`${props.recipes[0].image_url}`}
+      preload={`${props.recipes[0].image_url}`}
     >
       <div className="mx-auto w-5/6">
         <h1 className="text-center text-2xl m-2">
