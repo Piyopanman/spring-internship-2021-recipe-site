@@ -31,6 +31,7 @@ const RecipePage: NextPage<Props> = (props) => {
       <div className="mx-auto w-5/6 mt-2">
         <h1 className="text-xl">{props.recipe.title}</h1>
         <Image
+          priority={true}
           src={props.recipe.image_url}
           alt={props.recipe.title}
           width={896}

@@ -15,6 +15,7 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
         <Link href={`/recipe/${props.id}`}>{props.title}</Link>
       </h1>
       <Image
+        priority={true}
         src={image_url}
         alt={props.title}
         width={896}
