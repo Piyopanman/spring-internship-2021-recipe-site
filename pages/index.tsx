@@ -1,10 +1,10 @@
 import type { NextPage, GetStaticProps } from "next";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import loadable from "@loadable/component";
 import Layout from "../components/Layout";
 import type Recipe from "./index";
 import type Props from "./index";
-import lodash from "lodash";
+import InfiniteScroll from "react-infinite-scroller";
 
 const RecipeSummary = loadable(() => import("../components/RecipeSummary"));
 
@@ -32,43 +32,37 @@ export interface Props {
 
 const TopPage: NextPage<Props> = (props) => {
   const [recipes, setRecipes] = useState<Recipe[]>(props.recipes);
-  const [number, setNumber] = useState<number>(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    getRecipes();
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [number]);
-
-  // 一番下に到達したらページ番号を更新
-  const handleScroll = lodash.throttle(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    ) {
-      return;
-    }
-    setNumber(number + 1);
-  }, 200);
-
-  // 続きを取得して配列に結合
-  const getRecipes = async () => {
-    if (number == 1) {
-      return;
-    }
+  const loadMore = async (page: number) => {
     const res = await fetch(
-      `https://internship-recipe-api.ckpd.co/recipes?page=${number}`,
+      `https://internship-recipe-api.ckpd.co/recipes?page=${page + 1}`,
       {
         headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
       }
     );
-
     const data = (await res.json()) as Props;
     const newRecipes = data.recipes as Recipe[];
+    if (newRecipes.length < 1) {
+      setHasMore(false);
+      return;
+    }
     setRecipes([...recipes, ...newRecipes]);
   };
+
+  const items = (
+    <div>
+      {recipes.map((r) => (
+        <RecipeSummary key={r.id} {...r} />
+      ))}
+    </div>
+  );
+
+  const loader = (
+    <div className="mx-auto w-5/6" key={0}>
+      Loading ...
+    </div>
+  );
 
   return (
     <div>
@@ -77,11 +71,14 @@ const TopPage: NextPage<Props> = (props) => {
         image={`${props.recipes[0].image_url}`}
         preload={`${props.recipes[0].image_url}`}
       >
-        <div className="mx-auto w-5/6">
-          {recipes.map((r) => (
-            <RecipeSummary key={r.id} {...r} />
-          ))}
-        </div>
+        <InfiniteScroll
+          loadMore={loadMore}
+          hasMore={hasMore}
+          loader={loader}
+          initialLoad={false}
+        >
+          {items}
+        </InfiniteScroll>
       </Layout>
     </div>
   );

@@ -4,7 +4,7 @@ import loadable from "@loadable/component";
 import Layout from "../../components/Layout";
 import { Props } from "../index";
 import type { Recipe } from "../index";
-import lodash from "lodash";
+import InfiniteScroll from "react-infinite-scroller";
 
 const RecipeSummary = loadable(() => import("../../components/RecipeSummary"));
 
@@ -14,44 +14,39 @@ interface SearchProps extends Props {
 
 const Search: NextPage<SearchProps> = (props) => {
   const [recipes, setRecipes] = useState<Recipe[]>(props.recipes);
-  const [number, setNumber] = useState<number>(1);
+  const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
-    getRecipes();
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [number]);
-
-  // 一番下に到達したらページ番号を更新
-  const handleScroll = lodash.throttle(() => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    ) {
-      return;
-    }
-    setNumber(number + 1);
-  }, 200);
-
-  // 続きを取得して配列に結合
-  const getRecipes = async () => {
-    if (number == 1) {
-      return;
-    }
+  const loadMore = async (page: number) => {
     const res = await fetch(
-      `https://internship-recipe-api.ckpd.co/search?keyword=${props.keyword}&page=${number}`,
+      `https://internship-recipe-api.ckpd.co/search?keyword=${
+        props.keyword
+      }&page=${page + 1}`,
       {
         headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
       }
     );
     const data = (await res.json()) as Props;
     const newRecipes = data.recipes as Recipe[];
+    if (newRecipes.length < 1) {
+      setHasMore(false);
+      return;
+    }
     setRecipes([...recipes, ...newRecipes]);
   };
+
+  const items = (
+    <div>
+      {recipes.map((r) => (
+        <RecipeSummary key={r.id} {...r} />
+      ))}
+    </div>
+  );
+
+  const loader = (
+    <div className="mx-auto w-5/6" key={0}>
+      Loading ...
+    </div>
+  );
 
   return (
     <Layout
@@ -64,9 +59,14 @@ const Search: NextPage<SearchProps> = (props) => {
         <h1 className="text-center text-2xl m-2">
           {props.keyword}を使ったレシピ
         </h1>
-        {recipes.map((r) => (
-          <RecipeSummary key={r.id} {...r} />
-        ))}
+        <InfiniteScroll
+          loadMore={loadMore}
+          hasMore={hasMore}
+          loader={loader}
+          initialLoad={false}
+        >
+          {items}
+        </InfiniteScroll>
       </div>
     </Layout>
   );
