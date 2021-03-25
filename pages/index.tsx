@@ -64,7 +64,7 @@ const TopPage: NextPage<Props> = (props) => {
   );
 
   const loader = (
-    <div className="text-2xl text-center m-2 text-yellow-600" key={0}>
+    <div className="text-2xl text-center m-2 text-yellow-900" key={0}>
       Loading ...
     </div>
   );
