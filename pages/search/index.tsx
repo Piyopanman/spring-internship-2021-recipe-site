@@ -43,7 +43,7 @@ const Search: NextPage<SearchProps> = (props) => {
   );
 
   const loader = (
-    <div className="text-2xl text-center m-2 text-yellow-500" key={0}>
+    <div className="text-2xl text-center m-2 text-yellow-600" key={0}>
       Loading ...
     </div>
   );
@@ -57,7 +57,7 @@ const Search: NextPage<SearchProps> = (props) => {
         preload={`${props.recipes[0].image_url}`}
       >
         <div className="mx-auto w-5/6">
-          <h1 className="text-center text-2xl m-2 bg-yellow-500 text-white rounded">
+          <h1 className="text-center text-2xl m-2 bg-yellow-600 text-white rounded">
             {props.keyword}を使ったレシピ
           </h1>
           <InfiniteScroll

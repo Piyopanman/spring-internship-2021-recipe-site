@@ -32,7 +32,7 @@ const RecipePage: NextPage<Props> = (props) => {
       preload={`${image_url}`}
     >
       <div className="mx-auto w-5/6 mt-2 bg-white p-2">
-        <h1 className="text-xl text-green-500">{props.recipe.title}</h1>
+        <h1 className="text-xl text-green-700">{props.recipe.title}</h1>
         <Image
           priority={true}
           src={image_url}
@@ -46,15 +46,15 @@ const RecipePage: NextPage<Props> = (props) => {
           <div>{date}</div>
         </div>
         <p>{props.recipe.description}</p>
-        <h2 className="bg-yellow-500 text-white pl-1">材料</h2>
+        <h2 className="bg-yellow-600 text-white pl-1">材料</h2>
         {props.recipe.ingredients.map((i) => (
           <Ingredient key={i.name} name={i.name} quantity={i.quantity} />
         ))}
-        <h2 className="bg-yellow-500 text-white pl-1">手順</h2>
+        <h2 className="bg-yellow-600 text-white pl-1">手順</h2>
         {props.recipe.steps.map((step, index) => (
           <Step key={index} index={index + 1} step={step} />
         ))}
-        <h2 className="bg-yellow-500 text-white pl-1 mb-1">関連レシピ</h2>
+        <h2 className="bg-yellow-600 text-white pl-1 mb-1">関連レシピ</h2>
         {props.relatedRecipes.recipes.map((r) => (
           <RelatedRecipe key={r.id} id={r.id} img={r.image_url} />
         ))}

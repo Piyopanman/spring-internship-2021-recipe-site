@@ -11,7 +11,7 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
 
   return (
     <div className="border-solid border-b-2 bg-white m-1 p-2">
-      <h1 className="underline text-xl text-green-500">
+      <h1 className="underline text-xl text-green-700">
         <Link href={`/recipe/${props.id}`}>{props.title}</Link>
       </h1>
       <Link href={`/recipe/${props.id}`}>

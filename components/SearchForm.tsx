@@ -27,7 +27,7 @@ const SearchForm: NextPage = () => {
             required
           />
           <button
-            className="p-1 border-solid border bg-yellow-500 text-white rounded-sm"
+            className="p-1 border-solid border bg-yellow-600 text-white rounded-sm"
             type="submit"
             disabled={!keyword}
           >
