@@ -37,7 +37,7 @@ const Layout = ({
       <meta name="msapplication-TileColor" content="#ffa500" />
       <meta name="theme-color" content="#fff" />
       <link rel="manifest" href="/manifest.json" />
-      <link rel="preload" as="image" href={`${preload}`} crossorigin />
+      <link rel="preload" as="image" href={`${preload}`} />
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
       <link rel="apple-touch-startup-image" href="/favicon.ico" />
