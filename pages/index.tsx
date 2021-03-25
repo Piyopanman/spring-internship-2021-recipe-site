@@ -88,9 +88,12 @@ const TopPage: NextPage<Props> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-  const res = await fetch("https://internship-recipe-api.ckpd.co/recipes", {
-    headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
-  });
+  const res = await fetch(
+    "https://internship-recipe-api.ckpd.co/recipes?page=1",
+    {
+      headers: { "X-Api-Key": process.env.NEXT_PUBLIC_API_KEY },
+    }
+  );
   const props = (await res.json()) as Props;
 
   return {

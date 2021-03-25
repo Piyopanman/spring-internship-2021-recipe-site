@@ -17,7 +17,7 @@ const Layout = ({
   title = "レシピ検索app",
   description = "レシピを検索できます！",
   image = "http://img.cpcdn.com/recipes/317016/1280x720c/2c3d2dfb0ad90b38b791cca584edc87a.jpg",
-  preload = "",
+  preload = "/favicon.ico",
 }: Props) => (
   <div className={styles.container}>
     <Head>
@@ -37,10 +37,10 @@ const Layout = ({
       <meta name="msapplication-TileColor" content="#ffa500" />
       <meta name="theme-color" content="#fff" />
       <link rel="manifest" href="/manifest.json" />
-      <link rel="preload" as="image" href={`${preload}`} />
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
       <link rel="apple-touch-startup-image" href="/favicon.ico" />
+      <link rel="preload" as="image" href={`${preload}`} />
     </Head>
     <h1 className="text-center text-3xl m-2 underline bg-gray-400">
       <Link href="/"> レシピ検索app</Link>

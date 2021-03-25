@@ -19,19 +19,23 @@ type RelatedRecipes = {
 
 const RecipePage: NextPage<Props> = (props) => {
   let date = format(new Date(props.recipe.published_at));
+  let image_url = props.recipe.image_url;
+  if (props.recipe.image_url === null) {
+    image_url = "/no_image.jpeg";
+  }
 
   return (
     <Layout
       title={`${props.recipe.title} | レシピ検索app`}
       description={`${props.recipe.description}`}
-      image={`${props.recipe.image_url}`}
-      preload={`${props.recipe.image_url}`}
+      image={`${image_url}`}
+      preload={`${image_url}`}
     >
       <div className="mx-auto w-5/6 mt-2">
         <h1 className="text-xl">{props.recipe.title}</h1>
         <Image
           priority={true}
-          src={props.recipe.image_url}
+          src={image_url}
           alt={props.recipe.title}
           width={896}
           height={504}
@@ -51,11 +55,9 @@ const RecipePage: NextPage<Props> = (props) => {
           <Step key={index} index={index + 1} step={step} />
         ))}
         <h2 className="bg-gray-400 mb-2">関連レシピ</h2>
-        {/* <div className="flex flex-wrap content-start h-full"> */}
         {props.relatedRecipes.recipes.map((r) => (
           <RelatedRecipe key={r.id} id={r.id} img={r.image_url} />
         ))}
-        {/* </div> */}
       </div>
     </Layout>
   );
