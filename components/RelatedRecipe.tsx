@@ -15,8 +15,8 @@ const RelatedRecipe: NextPage<Props> = (props) => {
           className="mb-2"
           src={props.img}
           alt={props.img}
-          width={1280}
-          height={720}
+          width={896}
+          height={504}
         />
       </Link>
     </>

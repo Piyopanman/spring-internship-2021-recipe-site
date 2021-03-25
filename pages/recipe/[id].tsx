@@ -33,8 +33,8 @@ const RecipePage: NextPage<Props> = (props) => {
         <Image
           src={props.recipe.image_url}
           alt={props.recipe.title}
-          width={1280}
-          height={720}
+          width={896}
+          height={504}
           layout="responsive"
         />
         <div className="flex flex-row my-1 mx-2 justify-between">
