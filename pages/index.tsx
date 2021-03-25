@@ -34,6 +34,11 @@ const TopPage: NextPage<Props> = (props) => {
   const [recipes, setRecipes] = useState<Recipe[]>(props.recipes);
   const [hasMore, setHasMore] = useState(true);
 
+  let image_url = props.recipes[0].image_url;
+  if (props.recipes[0].image_url === null) {
+    image_url = "/no_image.jpeg";
+  }
+
   const loadMore = async (page: number) => {
     const res = await fetch(
       `https://internship-recipe-api.ckpd.co/recipes?page=${page + 1}`,
@@ -68,8 +73,8 @@ const TopPage: NextPage<Props> = (props) => {
     <div className="bg-yellow-100">
       <Layout
         title="レシピ検索app"
-        image={`${props.recipes[0].image_url}`}
-        preload={`${props.recipes[0].image_url}`}
+        image={`${image_url}`}
+        preload={`${image_url}`}
       >
         <div className="mx-auto w-5/6 ">
           <InfiniteScroll
