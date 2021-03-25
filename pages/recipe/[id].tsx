@@ -3,49 +3,64 @@ import Image from "next/image";
 import loadable from "@loadable/component";
 import type { Recipe } from "..";
 import Layout from "../../components/Layout";
+import RelatedRecipe from "../../components/RelatedRecipe";
 
 const Ingredient = loadable(() => import("../../components/Ingredient"));
 const Step = loadable(() => import("../../components/Step"));
 
-const RecipePage: NextPage<Recipe> = (props) => {
-  let date = format(new Date(props.published_at));
+type Props = {
+  recipe: Recipe;
+  relatedRecipes: RelatedRecipes;
+};
+
+type RelatedRecipes = {
+  recipes: Recipe[];
+};
+
+const RecipePage: NextPage<Props> = (props) => {
+  let date = format(new Date(props.recipe.published_at));
+  // console.log(props.relatedRecipes.recipes[0]);
 
   return (
     <Layout
-      title={`${props.title} | レシピ検索app`}
-      description={`${props.description}`}
-      image={`${props.image_url}`}
+      title={`${props.recipe.title} | レシピ検索app`}
+      description={`${props.recipe.description}`}
+      image={`${props.recipe.image_url}`}
     >
       <div className="mx-auto w-5/6 mt-2">
-        <h1 className="text-xl">{props.title}</h1>
+        <h1 className="text-xl">{props.recipe.title}</h1>
         <Image
-          src={props.image_url}
-          alt="image"
+          src={props.recipe.image_url}
+          alt={props.recipe.title}
           width={300}
           height={200}
           layout="responsive"
         />
-        <div className="flex flex-row my-1 mx-3 justify-between">
-          <div>{props.author.user_name} </div>
+        <div className="flex flex-row my-1 mx-2 justify-between">
+          <div>{props.recipe.author.user_name} </div>
           <div>{date}</div>
         </div>
-        <p>{props.description}</p>
+        <p>{props.recipe.description}</p>
         <h2 className="bg-gray-400">材料</h2>
-        {props.ingredients.map((i) => (
+        {props.recipe.ingredients.map((i) => (
           <Ingredient key={i.name} name={i.name} quantity={i.quantity} />
         ))}
         <h2 className="bg-gray-400">手順</h2>
-        {props.steps.map((step, index) => (
+        {props.recipe.steps.map((step, index) => (
           <Step key={index} index={index + 1} step={step} />
         ))}
+        <h2 className="bg-gray-400 mb-2">関連レシピ</h2>
+        {/* <div className="flex flex-wrap content-start h-full"> */}
+        {props.relatedRecipes.recipes.map((r) => (
+          <RelatedRecipe key={r.id} id={r.id} img={r.image_url} />
+        ))}
+        {/* </div> */}
       </div>
     </Layout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Recipe> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = Number(context.params?.id);
 
   const res = await fetch(
@@ -54,9 +69,28 @@ export const getServerSideProps: GetServerSideProps<Recipe> = async (
       headers: { "X-Api-Key": process.env.API_KEY },
     }
   );
-  const props = (await res.json()) as Recipe;
+  const recipe = (await res.json()) as Recipe;
+
+  //関連レシピ
+  let relatedRecipesParam = "";
+  recipe.related_recipes.forEach((r, index) => {
+    if (index !== recipe.related_recipes.length - 1) {
+      relatedRecipesParam += r + ",";
+    } else {
+      relatedRecipesParam += r;
+    }
+  });
+
+  const resReleted = await fetch(
+    `https://internship-recipe-api.ckpd.co/recipes?id=${relatedRecipesParam}`,
+    {
+      headers: { "X-Api-Key": process.env.API_KEY },
+    }
+  );
+  const relatedRecipes = (await resReleted.json()) as Recipe[];
+
   return {
-    props: props,
+    props: { recipe: recipe, relatedRecipes: relatedRecipes },
   };
 };
 
