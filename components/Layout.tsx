@@ -42,7 +42,7 @@ const Layout = ({
       <link rel="apple-touch-startup-image" href="/favicon.ico" />
       {/* <link rel="preload" as="image" href={`${preload}`} /> */}
     </Head>
-    <h1 className="text-center text-3xl m-2 underline bg-gray-400">
+    <h1 className="text-center text-4xl p-3 mb-1 text-white bg-yellow-500">
       <Link href="/"> レシピ検索app</Link>
     </h1>
     <SearchForm />

@@ -10,20 +10,21 @@ const RecipeSummary: NextPage<Recipe> = (props) => {
   }
 
   return (
-    <div className="border-solid border-b-2">
-      <h1 className="underline text-xl ">
+    <div className="border-solid border-b-2 bg-white m-1 p-2">
+      <h1 className="underline text-xl text-green-500">
         <Link href={`/recipe/${props.id}`}>{props.title}</Link>
       </h1>
-      <Image
-        priority={true}
-        src={image_url}
-        alt={props.title}
-        width={896}
-        height={504}
-        layout="responsive"
-      />
-      <p>{props.description}</p>
-      <br />
+      <Link href={`/recipe/${props.id}`}>
+        <Image
+          priority={true}
+          src={image_url}
+          alt={props.title}
+          width={896}
+          height={504}
+          layout="responsive"
+        />
+      </Link>
+      <p className="">{props.description}</p>
     </div>
   );
 };

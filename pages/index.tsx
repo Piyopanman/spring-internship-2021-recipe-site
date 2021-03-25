@@ -59,26 +59,28 @@ const TopPage: NextPage<Props> = (props) => {
   );
 
   const loader = (
-    <div className="mx-auto w-5/6" key={0}>
+    <div className="text-2xl text-center m-2 text-yellow-500" key={0}>
       Loading ...
     </div>
   );
 
   return (
-    <div>
+    <div className="bg-yellow-100">
       <Layout
         title="レシピ検索app"
         image={`${props.recipes[0].image_url}`}
         preload={`${props.recipes[0].image_url}`}
       >
-        <InfiniteScroll
-          loadMore={loadMore}
-          hasMore={hasMore}
-          loader={loader}
-          initialLoad={false}
-        >
-          {items}
-        </InfiniteScroll>
+        <div className="mx-auto w-5/6 ">
+          <InfiniteScroll
+            loadMore={loadMore}
+            hasMore={hasMore}
+            loader={loader}
+            initialLoad={false}
+          >
+            {items}
+          </InfiniteScroll>
+        </div>
       </Layout>
     </div>
   );

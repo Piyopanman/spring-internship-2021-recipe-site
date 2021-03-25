@@ -17,16 +17,17 @@ const SearchForm: NextPage = () => {
       <label htmlFor="search-word">
         <form onSubmit={handleSubmit}>
           <input
-            className="p-1 border-solid border border-black rounded-sm"
+            className="p-1 border-solid border border-yellow rounded-sm"
             name="keyword"
             type="text"
             autoComplete="hoge"
             onChange={(e) => setKeyword(e.target.value)}
             id="search-word"
+            placeholder="鶏肉"
             required
           />
           <button
-            className="p-1 border-solid border border-black rounded-sm"
+            className="p-1 border-solid border bg-yellow-500 text-white rounded-sm"
             type="submit"
             disabled={!keyword}
           >

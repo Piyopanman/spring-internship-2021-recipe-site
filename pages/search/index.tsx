@@ -43,32 +43,34 @@ const Search: NextPage<SearchProps> = (props) => {
   );
 
   const loader = (
-    <div className="mx-auto w-5/6" key={0}>
+    <div className="text-2xl text-center m-2 text-yellow-500" key={0}>
       Loading ...
     </div>
   );
 
   return (
-    <Layout
-      title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}
-      description={`${props.recipes[0].description}`}
-      image={`${props.recipes[0].image_url}`}
-      preload={`${props.recipes[0].image_url}`}
-    >
-      <div className="mx-auto w-5/6">
-        <h1 className="text-center text-2xl m-2">
-          {props.keyword}を使ったレシピ
-        </h1>
-        <InfiniteScroll
-          loadMore={loadMore}
-          hasMore={hasMore}
-          loader={loader}
-          initialLoad={false}
-        >
-          {items}
-        </InfiniteScroll>
-      </div>
-    </Layout>
+    <div className="bg-yellow-100">
+      <Layout
+        title={`${props.keyword}を使ったレシピ一覧 | レシピ検索app`}
+        description={`${props.recipes[0].description}`}
+        image={`${props.recipes[0].image_url}`}
+        preload={`${props.recipes[0].image_url}`}
+      >
+        <div className="mx-auto w-5/6">
+          <h1 className="text-center text-2xl m-2 bg-yellow-500 text-white rounded">
+            {props.keyword}を使ったレシピ
+          </h1>
+          <InfiniteScroll
+            loadMore={loadMore}
+            hasMore={hasMore}
+            loader={loader}
+            initialLoad={false}
+          >
+            {items}
+          </InfiniteScroll>
+        </div>
+      </Layout>
+    </div>
   );
 };
 
