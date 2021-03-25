@@ -39,8 +39,6 @@ const Search: NextPage<SearchProps> = (props) => {
 
   // 続きを取得して配列に結合
   const getRecipes = async () => {
-    console.log(number);
-
     if (number == 1) {
       return;
     }

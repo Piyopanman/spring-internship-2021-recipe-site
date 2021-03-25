@@ -19,7 +19,6 @@ type RelatedRecipes = {
 
 const RecipePage: NextPage<Props> = (props) => {
   let date = format(new Date(props.recipe.published_at));
-  // console.log(props.relatedRecipes.recipes[0]);
 
   return (
     <Layout
