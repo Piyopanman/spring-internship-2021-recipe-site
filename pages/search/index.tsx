@@ -27,11 +27,12 @@ const Search: NextPage<SearchProps> = (props) => {
     );
     const data = (await res.json()) as Props;
     const newRecipes = data.recipes as Recipe[];
-    if (newRecipes.length < 1) {
+    if (res.status === 404) {
       setHasMore(false);
       return;
+    } else {
+      setRecipes([...recipes, ...newRecipes]);
     }
-    setRecipes([...recipes, ...newRecipes]);
   };
 
   const items = (
